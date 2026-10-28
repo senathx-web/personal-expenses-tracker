@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal Expense Tracker</title>
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">$</span>
+                Personal Expense Tracker
+            </a>
+
+            <span class="nav-label">Manage your money wisely</span>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- Page Heading -->
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">YOUR FINANCES, SIMPLIFIED</p>
+                <h1>Dashboard</h1>
+                <p class="subtitle">
+                    Keep track of your income and expenses in one place.
+                </p>
+            </div>
+        </section>
+
+        <!-- Summary Cards -->
+        <section class="summary-grid">
+
+            <article class="summary-card income-card">
+                <div class="card-top">
+                    <span class="card-label">Total Income</span>
+                    <span class="card-icon income-icon">↗</span>
+                </div>
+
+                <h2 id="totalIncome">LKR 0.00</h2>
+                <p>Money received</p>
+            </article>
+
+            <article class="summary-card expense-card">
+                <div class="card-top">
+                    <span class="card-label">Total Expenses</span>
+                    <span class="card-icon expense-icon">↘</span>
+                </div>
+
+                <h2 id="totalExpenses">LKR 0.00</h2>
+                <p>Money spent</p>
+            </article>
+
+            <article class="summary-card balance-card">
+                <div class="card-top">
+                    <span class="card-label">Current Balance</span>
+                    <span class="card-icon balance-icon">=</span>
+                </div>
+
+                <h2 id="currentBalance">LKR 0.00</h2>
+                <p>Income minus expenses</p>
+            </article>
+
+        </section>
+
+        <!-- Transaction Form -->
+        <section class="panel form-panel">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Add Transaction</h2>
+                    <p>Record your income or expenses.</p>
+                </div>
+            </div>
+
+            <form id="transactionForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="type">Transaction Type</label>
+
+                        <select id="type" name="type" required>
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+
+                        <input
+                            type="text"
+                            id="description"
+                            name="description"
+                            placeholder="e.g. Monthly allowance"
+                            maxlength="100"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Amount (LKR)</label>
+
+                        <input
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            placeholder="e.g. 25000"
+                            min="0.01"
+                            step="0.01"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category</label>
+
+                        <select id="category" name="category" required>
+                            <option value="">Select category</option>
+                            <option value="Allowance">Allowance</option>
+                            <option value="Salary">Salary</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Education">Education</option>
+                            <option value="Accommodation">Accommodation</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Bills">Bills</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date</label>
+
+                        <input
+                            type="date"
+                            id="date"
+                            name="date"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-secondary">
+                        Clear Form
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        + Add Transaction
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <!-- Transaction History -->
+        <section class="panel history-panel">
+
+            <div class="section-heading history-heading">
+                <div>
+                    <h2>Transaction History</h2>
+                    <p>Review and manage your transactions.</p>
+                </div>
+
+                <span id="transactionCount" class="count-badge">
+                    0 transactions
+                </span>
+            </div>
+
+            <!-- Search and Filter -->
+            <div class="toolbar">
+
+                <div class="search-box">
+                    <label for="searchInput" class="visually-hidden">
+                        Search transactions
+                    </label>
+
+                    <span aria-hidden="true">⌕</span>
+
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="Search transactions..."
+                    >
+                </div>
+
+                <div class="filter-box">
+                    <label for="filterType">Filter:</label>
+
+                    <select id="filterType">
+                        <option value="all">All Transactions</option>
+                        <option value="income">Income Only</option>
+                        <option value="expense">Expenses Only</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- Responsive Table -->
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th class="amount-column">Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="transactionTableBody">
+                        <!-- Transactions are added using JavaScript -->
+                    </tbody>
+                </table>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">↗</div>
+                    <h3>No transactions yet</h3>
+                    <p>Add your first transaction to see it here.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            <p>Personal Expense Tracker &copy; <span id="currentYear"></span></p>
+            <p>Your data stays in your browser.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>
